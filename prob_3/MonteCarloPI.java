@@ -54,7 +54,6 @@ public class MonteCarloPI {
             notifyAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
-            ;
         }
     }
 
