@@ -18,6 +18,11 @@ public class Philosopher implements Runnable {
         while (i <= 10) {
             monitor.takeForks(philosoperId);
 
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             // eat
             System.out.println("Philosopher " + philosoperId + " is eating");
             try {
@@ -26,6 +31,8 @@ public class Philosopher implements Runnable {
                 e.printStackTrace();
             }
             monitor.returnForks(philosoperId);
+            System.out.println("Philosopher " + philosoperId + " returned fork");
+
             i++;
         }
     }

@@ -79,19 +79,19 @@ public class MonteCarloPI {
             }
             insert(numberInCircle);
         }
-    }
 
-    public static void insert(int n) {
-        try {
-            while (BufferSize == MaxBuffSize) {
-                wait();
+        public void insert(int n) {
+            try {
+                while (BufferSize == MaxBuffSize) {
+                    wait();
+                }
+                BufferEnd = (BufferEnd + 1) % MaxBuffSize;
+                buffer[BufferEnd] = n;
+                BufferSize++;
+                notifyAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            BufferEnd = (BufferEnd + 1) % MaxBuffSize;
-            buffer[BufferEnd] = n;
-            BufferSize++;
-            notifyAll();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

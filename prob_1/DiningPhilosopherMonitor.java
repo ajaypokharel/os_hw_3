@@ -27,8 +27,8 @@ public class DiningPhilosopherMonitor {
     }
 
     public void takeForks(int i) {
+        lock.lock();
         try {
-            lock.lock();
             state[i] = State.HUNGRY;
             System.out.println("Philosopher " + i + " is hungry.");
             test(i);
@@ -36,19 +36,25 @@ public class DiningPhilosopherMonitor {
                 System.out.println("Philosopher " + i + " waiting for the fork...");
                 self[i].await();
             }
-            lock.unlock();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            lock.unlock();
+
         }
 
     }
 
     public void returnForks(int i) {
         lock.lock();
-        state[i] = State.THINKING;
-        test((i + 4) % 5);
-        test((i + 1) % 5);
-        lock.unlock();
+        try {
+            state[i] = State.THINKING;
+            test((i + 4) % 5);
+            test((i + 1) % 5);
+        } catch (Exception e) {
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void test(int i) {

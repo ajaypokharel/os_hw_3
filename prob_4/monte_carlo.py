@@ -56,8 +56,8 @@ if __name__ == "__main__":
     for i in range(10):
         th[i] = Producer(sl, size)
         th[i].start()
-
-    consume(sl, size)
+        sleep(0.2)
+        consume(sl, size)
 
     for i in range(10):
         th[i].join()

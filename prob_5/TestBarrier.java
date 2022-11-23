@@ -2,29 +2,11 @@ package prob_5;
 
 import java.io.IOException;
 
-/**
- * 
- * A testing harness for the Barrier class.
- *
- * 
- * 
- * Proper output is that we should see is that all threads
- * 
- * output an 'A' before reaching the barrier and then a 'B'
- * 
- * after proceeding through the barrier. Therefore, output
- * 
- * should appear as a series of 'A's followed by an equal count
- * 
- * of 'B's. (There should not be an intermingling of 'A's and 'B's.
- * 
- */
-
 public class TestBarrier {
 
     public static final int THREAD_COUNT = 10;
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, InterruptedException {
 
         Barrier barrier = new Barrier(THREAD_COUNT);
 
@@ -83,7 +65,7 @@ class Worker implements Runnable
 
     public void run() {
 
-        System.out.println("A");
+        System.out.println("Started");
 
         try {
             bar.waitForOthers();
@@ -91,7 +73,7 @@ class Worker implements Runnable
             e.printStackTrace();
         }
 
-        System.out.println("B");
+        System.out.println("FINISHED");
 
     }
 
